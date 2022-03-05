@@ -45,6 +45,13 @@ class MainActivity : AppCompatActivity() {
             exerciseList.add("两数之和")
             exerciseList.add("两数相加")
             exerciseList.add("无重复字符的最长子串")
+            exerciseList.add("寻找两个正序数组的中位数")
+            exerciseList.add("最长回文子串")
+            exerciseList.add("Z字形变换")
+            exerciseList.add("整数反转")
+            exerciseList.add("字符串转换整数")
+            exerciseList.add("回文数")
+            exerciseList.add("正则表达式匹配")
         }
     }
 }

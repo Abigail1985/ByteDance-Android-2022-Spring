@@ -1,6 +1,7 @@
 package com.bytedance.jstu.homework
 
 import android.content.Intent
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
@@ -19,9 +20,8 @@ class ExerciseAdapter(val exerciseList: List<String>) : RecyclerView.Adapter<Exe
             val position=viewHolder.adapterPosition
             val exercise=exerciseList[position]
 
-            val intent=Intent(parent.context,SecondActivity::class.java)
-//            intent.putExtra(SecondActivity)
-            SecondActivity.actionStart(parent.context)
+            SecondActivity.actionStart(parent.context,exercise)
+            Log.d("ddd","传递前的信息是$exercise")
         }
         return viewHolder
     }
