@@ -35,6 +35,7 @@ class ClockView @JvmOverloads constructor(
 ) : View(context, attrs, defStyleAttr) {
 
     private var cal: Calendar = Calendar.getInstance()
+    private var curHourOfDay=cal.get(Calendar.HOUR_OF_DAY).toFloat()
     private var curHour= cal.get(Calendar.HOUR).toFloat()
     private var curMinute= cal.get(Calendar.MINUTE).toFloat()
     private var curSecond= cal.get(Calendar.SECOND).toFloat()
@@ -71,11 +72,19 @@ class ClockView @JvmOverloads constructor(
         strokeCap=Paint.Cap.ROUND
     }
     private var NumerPaint: Paint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-        color=Color.BLACK
+        color=Color.WHITE
         strokeWidth = 3f
         textSize=50f
         typeface= Typeface.DEFAULT
         textAlign=Paint.Align.LEFT
+        strokeCap=Paint.Cap.ROUND
+    }
+    private var DigitalPaint: Paint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+        color=Color.WHITE
+        strokeWidth = 3f
+        textSize=60f
+        typeface= Typeface.DEFAULT
+        textAlign=Paint.Align.CENTER
         strokeCap=Paint.Cap.ROUND
     }
     private var outRadius=min(width,height)/2//钟表外半径
@@ -90,6 +99,7 @@ class ClockView @JvmOverloads constructor(
                 Thread.sleep(1000)
 //                Log.i("iii","thread start")
                 cal = Calendar.getInstance()
+                curHourOfDay=cal.get(Calendar.HOUR_OF_DAY).toFloat()
                 curHour = cal.get(Calendar.HOUR).toFloat()
                 curMinute = cal.get(Calendar.MINUTE).toFloat()
                 curSecond = cal.get(Calendar.SECOND).toFloat()
@@ -120,6 +130,7 @@ class ClockView @JvmOverloads constructor(
 //        Log.i("iii","Time Before ReDraw: hour:${curHour}, min:${curMinute},sec: ${curSecond}")
         drawClockScale(canvas)
         drawClockHand(canvas)
+        drawDigitClock(canvas)
 //        Log.i("iii","Time After ReDraw: hour:${curHour}, min:${curMinute},sec: ${curSecond}")
     }
 
@@ -232,7 +243,10 @@ class ClockView @JvmOverloads constructor(
     }
 
     private fun drawDigitClock(canvas:Canvas?){
-        
+
+        var DigitNumber="${curHourOfDay.toInt()} : ${curMinute.toInt()} : ${curSecond.toInt()}"
+
+        canvas?.drawText( DigitNumber, (width/2).toFloat(), (height*3/4).toFloat(),DigitalPaint)
     }
 
 }
