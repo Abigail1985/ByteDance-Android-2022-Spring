@@ -4,9 +4,10 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
+import android.graphics.Typeface
 import android.util.AttributeSet
-import android.util.Log
 import android.view.View
+import android.webkit.WebSettings
 import java.util.*
 import kotlin.math.PI
 import kotlin.math.cos
@@ -43,41 +44,59 @@ class ClockView @JvmOverloads constructor(
 
     //设置抗锯齿标志位，表示绘制时候启用抗锯齿功能
     private var ClockHourScalePaint: Paint = Paint(Paint.ANTI_ALIAS_FLAG).apply { 
-        color=Color.RED
+        color=Color.WHITE
         strokeWidth = 10f
+        strokeCap=Paint.Cap.ROUND
     }
     private var ClockMinScalePaint: Paint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-        color=Color.RED
+        color=Color.WHITE
         strokeWidth = 5f
+        strokeCap=Paint.Cap.ROUND
     }
 
     private var HourHandPaint: Paint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         color=Color.WHITE
         strokeWidth = 10f
+        strokeCap=Paint.Cap.ROUND
     }
 
     private var MinHandPaint: Paint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         color=Color.GRAY
         strokeWidth = 5f
+        strokeCap=Paint.Cap.ROUND
     }
     private var SecHandPaint: Paint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         color=Color.BLACK
         strokeWidth = 3f
+        strokeCap=Paint.Cap.ROUND
+    }
+    private var NumerPaint: Paint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+        color=Color.BLACK
+        strokeWidth = 3f
+        textSize=50f
+        typeface= Typeface.DEFAULT
+        textAlign=Paint.Align.LEFT
+        strokeCap=Paint.Cap.ROUND
     }
     private var outRadius=min(width,height)/2//钟表外半径
     private var HourHandLength=outRadius*0.4
     private var MinuteHandLength=outRadius*0.6
     private var SecondHandLength=outRadius*0.8
+    private val strNumber = arrayOf("3", "2", "1", "12", "11", "10", "9", "8", "7", "6", "5", "4")
 
     init{
         Thread {
             while (true){
                 Thread.sleep(1000)
-                Log.i("iii","thread start")
+//                Log.i("iii","thread start")
                 cal = Calendar.getInstance()
                 curHour = cal.get(Calendar.HOUR).toFloat()
                 curMinute = cal.get(Calendar.MINUTE).toFloat()
                 curSecond = cal.get(Calendar.SECOND).toFloat()
+                hourDegree= (curHour*30+curMinute*0.5+curSecond*0.1).toFloat() //curHour/12 *360
+                minuteDegree= (curMinute*6+curSecond*0.1).toFloat()//curMinute/60 *360
+                secondDegree=curSecond*6 //curSecond/60 *360
+                //之前没有再thread里更新Degree导致重绘失败
                 postInvalidate()
             }
         }.start()
@@ -90,32 +109,20 @@ class ClockView @JvmOverloads constructor(
         val height=MeasureSpec.getSize(heightMeasureSpec)
         outRadius=min(width,height)/2
         HourHandLength=outRadius*0.4
-        MinuteHandLength=outRadius*0.6
-        SecondHandLength=outRadius*0.8
+        MinuteHandLength=outRadius*0.5
+        SecondHandLength=outRadius*0.7
     }
 
 
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
-        Log.i("iii", "Start one Draw")
-        Log.i("iii","Time Before ReDraw: hour:${curHour}, min:${curMinute},sec: ${curSecond}")
+//        Log.i("iii", "Start one Draw")
+//        Log.i("iii","Time Before ReDraw: hour:${curHour}, min:${curMinute},sec: ${curSecond}")
         drawClockScale(canvas)
         drawClockHand(canvas)
-        Log.i("iii","Time After ReDraw: hour:${curHour}, min:${curMinute},sec: ${curSecond}")
+//        Log.i("iii","Time After ReDraw: hour:${curHour}, min:${curMinute},sec: ${curSecond}")
     }
 
-
-    /**通过改变角度值,获取不同角度方向的外圆一点到圆心连线过内圆一点的路径坐标集合（时钟刻度路径）*/
-    private fun getClockScalePaths(x0: Int, y0: Int, outRadius: Int, innerRadius: Int, angle: Int): FloatArray {
-        val paths = FloatArray(4)
-//        Log.i("i","Var in getClockScalePath:${x0}, ${y0}, ${outRadius}, ${innerRadius}")
-        paths[0] = (x0 + outRadius * cos(angle * PI / 180)).toFloat()
-        paths[1] = (y0 + outRadius * sin(angle * PI / 180)).toFloat()
-        paths[2] = (x0 + innerRadius * cos(angle * PI / 180)).toFloat()
-        paths[3] = (y0 + innerRadius * sin(angle * PI / 180)).toFloat()
-//        Log.i("ii","IngetClockScalePath:${paths[0]}, ${paths[1]}, ${paths[2]}, ${paths[3]}")
-        return paths
-    }
 
     /**绘制时钟刻度*/
     private fun drawClockScale(canvas: Canvas?) {
@@ -132,6 +139,15 @@ class ClockView @JvmOverloads constructor(
                 )
 //                Log.i("iii","Hour:${HourPaths[0]}, ${HourPaths[1]}, ${HourPaths[2]}, ${HourPaths[3]}")
                 canvas?.drawLines(HourPaths,ClockHourScalePaint)
+                val NumberPaths = getClockScalePaths(
+                    width / 2,
+                    height / 2,
+                    outRadius = outRadius,
+                    innerRadius = outRadius * 3 / 4,
+                    angle = -i * 6
+                )
+                canvas?.drawText(strNumber[i/5], NumberPaths[2]-15,NumberPaths[3]+15,NumerPaint)
+
             }
             else{
 //                Log.i("i", "Var give to getClockScalePaths:${width / 2}, ${height/2}, ${outRadius},${outRadius*7/8},${-i*6} ")
@@ -148,28 +164,45 @@ class ClockView @JvmOverloads constructor(
         }
     }
 
+    /**通过改变角度值,获取不同角度方向的外圆一点到圆心连线过内圆一点的路径坐标集合（时钟刻度路径）*/
+    private fun getClockScalePaths(x0: Int, y0: Int, outRadius: Int, innerRadius: Int, angle: Int): FloatArray {
+        val paths = FloatArray(4)
+//        Log.i("i","Var in getClockScalePath:${x0}, ${y0}, ${outRadius}, ${innerRadius}")
+        paths[0] = (x0 + outRadius * cos(angle * PI / 180)).toFloat()
+        paths[1] = (y0 + outRadius * sin(angle * PI / 180)).toFloat()
+        paths[2] = (x0 + innerRadius * cos(angle * PI / 180)).toFloat()
+        paths[3] = (y0 + innerRadius * sin(angle * PI / 180)).toFloat()
+//        Log.i("ii","IngetClockScalePath:${paths[0]}, ${paths[1]}, ${paths[2]}, ${paths[3]}")
+        return paths
+    }
+
+
+
+    /**根据指针路径绘制指针*/
     private fun drawClockHand(canvas:Canvas?){
         //hour
-        val HourHand=getClockHandPaths(1)
+        var HourHand=getClockHandPaths(1)
         canvas?.drawLines(HourHand,HourHandPaint)
 
         //minute
-        val MinHand=getClockHandPaths(2)
+        var MinHand=getClockHandPaths(2)
         canvas?.drawLines(MinHand,MinHandPaint)
 
         //second
-        val SecHand=getClockHandPaths(3)
+        var SecHand=getClockHandPaths(3)
         canvas?.drawLines(SecHand,SecHandPaint)
 
     }
+
+    /**默认零度并不是正上方*/
     private fun getRealDegree(degree: Float): Float {
         return if (degree < 0) degree + 270 else degree - 90
     }
 
-    /**根据当前时间绘制指针*/
+    /**根据当前时间获取指针路径*/
     private fun getClockHandPaths(handtype: Int):FloatArray{
-        val paths=FloatArray(4)
-        Log.i("ii","Time: hour:${curHour}, min:${curMinute},sec: ${curSecond}")
+        var paths=FloatArray(4)
+//        Log.i("iiii","Time: hour:${curHour}, min:${curMinute},sec: ${curSecond}")
 //        Log.i("iii","Degree: hour:${hourDegree}, min:${minuteDegree},sec: ${secondDegree}")
 //        Log.i("iii","Length: hour:${HourHandLength}, min:${MinuteHandLength},sec: ${SecondHandLength}")
         when(handtype){
@@ -194,8 +227,12 @@ class ClockView @JvmOverloads constructor(
                 paths[3]= (height/2 + SecondHandLength * sin(getRealDegree(secondDegree) * PI / 180)).toFloat()
             }
         }
-        Log.i("ii","getClockHandPaths return:${paths[0]}, ${paths[1]}, ${paths[2]}, ${paths[3]}")
+//        Log.i("iiii","getClockHandPaths return:${paths[0]}, ${paths[1]}, ${paths[2]}, ${paths[3]}")
         return paths
+    }
+
+    private fun drawDigitClock(canvas:Canvas?){
+        
     }
 
 }
