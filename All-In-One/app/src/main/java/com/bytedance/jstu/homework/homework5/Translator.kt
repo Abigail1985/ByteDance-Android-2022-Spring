@@ -3,19 +3,18 @@ package com.bytedance.jstu.homework.homework5
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.os.Looper
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.bytedance.jstu.homework.R
-import okhttp3.*
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-
-import com.bytedance.jstu.homework.homework5.api.TranslatorService
 import com.bytedance.jstu.homework.homework5.api.TranslatorBean
+import com.google.gson.GsonBuilder
+import okhttp3.*
+import org.json.JSONObject
+import java.io.IOException
+
 
 class Translator : AppCompatActivity() {
 
@@ -38,14 +37,11 @@ class Translator : AppCompatActivity() {
     }
 
     private val client: OkHttpClient = OkHttpClient.Builder()
+//        .addInterceptor(TimeConsumeInterceptor())
         .eventListener(okhttpListener)
         .build()
 
-    private var retrofit = Retrofit.Builder()
-        .baseUrl("https://dict.youdao.com/")
-        .addConverterFactory(GsonConverterFactory.create())
-        .client(client)
-        .build()
+    private val gson = GsonBuilder().create()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,40 +68,34 @@ class Translator : AppCompatActivity() {
         }
     }
 
-    private fun request(callback: Callback<TranslatorBean>) {
-        try {
-            val translatorService = retrofit.create(TranslatorService::class.java)
-            translatorService.getWordInfo("${editword?.text}").enqueue(callback)
-        } catch (error: Throwable) {
-            updateShowTextView("request err: ${error.message}", false)
-            error.printStackTrace()
-        }
+    private fun request(url: String, callback: Callback) {
+        val request: Request = Request.Builder()
+            .url(url)
+            .header("User-Agent", "Sjtu-Android-OKHttp")
+            .build()
+        client.newCall(request).enqueue(callback)
     }
 
     private fun click() {
-        request(object : Callback<TranslatorBean> {
-            @SuppressLint("SetTextI18n")
-            override fun onResponse(
-                call: retrofit2.Call<TranslatorBean>,
-                response: Response<TranslatorBean>
-            ) {
-                val respFormatText = if (response.isSuccessful) {
-                    val TranslatorBean = response.body()
-//                    val values =""
-//                    val keyvalue=""
-//                    val keyvalues=""
-//                    TranslatorBean?.web_trans?.webtranslation.forEach { it -> it.trans.forEach{ values+it.value+"  " } }
-//                    TranslatorBean?.web_trans?.webtranslation.forEach { keyvalue+it.key+":"+values+"\n" }
-//                    TranslatorBean?.web_trans?.webtranslation.forEach { keyvalues= }
-                    "\n\n\nInput: ${TranslatorBean?.web_trans?.webtranslation?.get(0)?.key.toString()}  ${TranslatorBean?.web_trans?.webtranslation?.get(0)?.trans?.get(0)?.value}\nAlias: ${TranslatorBean?.lang}"
-                } else {
-                    "\n\n\nhttp status code: ${response.code()}, http status code: Response fail: ${response.errorBody()?.string()}."
-                }
-                updateShowTextView(respFormatText)
+        val url = "https://dict.youdao.com/jsonapi?q=${editword?.text}"
+        request(url, object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                e.printStackTrace()
+                updateShowTextView(e.message.toString(), false)
             }
 
-            override fun onFailure(call: retrofit2.Call<TranslatorBean>, t: Throwable) {
-                updateShowTextView(t.message.toString(), false)
+            @SuppressLint("SetTextI18n")
+            override fun onResponse(call: Call, response: Response) {
+                val respFormatText = if (response.isSuccessful) {
+                    val bodyString = response.body?.string()
+                    val translatorBean = gson.fromJson(bodyString, TranslatorBean::class.java)
+                    Log.i("iii","$bodyString")
+
+                    "\n\n\nInput: ${translatorBean.input}\n\nTranslate: $bodyString"
+                } else {
+                    "\n\n\nResponse fail: ${response.body?.string()}, http status code: ${response.code}."
+                }
+                updateShowTextView(respFormatText)
             }
         })
     }
