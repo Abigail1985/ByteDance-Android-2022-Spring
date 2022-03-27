@@ -43,3 +43,17 @@
 ✅模拟时钟下方实现一个同步的数字时钟
 
 ![demo4](DemoGif/demo4.gif)
+
+
+
+## Homework5 (正在更新..)
+
+✅使用okHttp从api获取json数据
+
+✅解析无嵌套的json数据input
+
+❌使用wireshark / charles抓包分析
+
+❌解析嵌套的json数据web_trans等
+
+<img src="DemoGif/demo5.jpg" alt="demo5" style="zoom: 33%;" />
