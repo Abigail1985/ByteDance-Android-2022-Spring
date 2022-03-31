@@ -10,6 +10,7 @@ import com.bytedance.jstu.homework.homework2.ListActivity
 import com.bytedance.jstu.homework.homework3.BiliAnim
 import com.bytedance.jstu.homework.homework4.ClockActivity
 import com.bytedance.jstu.homework.homework5.Translator
+import com.bytedance.jstu.homework.homework6.DBActivity
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,7 +20,7 @@ class MainActivity : AppCompatActivity() {
         addLesson("第三讲 UI开发进阶", BiliAnim::class.java)
         addLesson("第四讲 复杂应用组件", ClockActivity::class.java)
         addLesson("第五讲 网络", Translator::class.java)
-        addLesson("第六讲 存储", Translator::class.java)
+        addLesson("第六讲 存储", DBActivity::class.java)
         addLesson("第七讲 多媒体基础", Translator::class.java)
         addLesson("第八讲 多媒体进阶", Translator::class.java)
         addLesson("第九讲 新技术趋势", Translator::class.java)

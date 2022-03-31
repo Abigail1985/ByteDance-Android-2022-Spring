@@ -1,4 +1,7 @@
-# readme
+# 
+
+readme
+
 > 安卓学习笔记仓库:https://github.com/Abigail1985/Code-Learning-Note
 
 
@@ -57,3 +60,21 @@
 ❌解析嵌套的json数据web_trans等
 
 <img src="DemoGif/demo5.jpg" alt="demo5" style="zoom: 33%;" />
+
+
+
+## Homework6
+
+✅基于database存储方式实现todolist 
+
+✅基于recycleview实现查看任务列表界面
+
+✅可删除任务
+
+✅可多选操作
+
+✅能区分已完成和未完成任务
+
+✅界面丰富性——可一键删除所有任务
+
+![demo6](DemoGif/demo6.gif)
