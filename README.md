@@ -1,6 +1,4 @@
-# 
-
-readme
+# readme
 
 > 安卓学习笔记仓库:https://github.com/Abigail1985/Code-Learning-Note
 
@@ -10,6 +8,28 @@ readme
 集中展示所有作业
 
 **从Homework5开始, 仅更新在All-In-one中, 不再为单独为作业创建项目和文件夹**
+
+## Homework7
+
+
+
+**视频部分**
+
+✅播放、暂停、重播功能； 
+
+✅播放进度条展示（包括时间显示）、点击/滑动跳转到指定位置。
+
+![demo7-2](DemoGif/demo7-2.gif)
+
+**图⽚部分**
+
+✅⽹络图⽚展示(动图+静图)
+
+✅⽀持左右滑动切换展示不同图⽚
+
+![demo7-1](DemoGif/demo7-1.gif)
+
+
 
 ## Homework6
 
