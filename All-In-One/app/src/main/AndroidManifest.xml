@@ -11,9 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Homework">
-        <activity
-            android:name=".homework6.TodoAdapter"
-            android:exported="false" />
+
         <activity
             android:name=".homework2.DetailActivity"
             android:exported="false" />
@@ -34,6 +32,15 @@
         <activity
             android:name=".homework6.DBActivity"
             android:exported="false" />
+        <activity
+            android:name=".homework7.MultimediaActivity"
+            android:exported="false"/>
+        <activity
+            android:name=".homework7.ImageActivity"
+            android:exported="false"/>
+        <activity
+            android:name=".homework7.VideoActivity"
+            android:exported="false"/>
         <activity
             android:name=".MainActivity"
             android:exported="true">
