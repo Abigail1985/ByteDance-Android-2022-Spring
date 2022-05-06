@@ -46,10 +46,19 @@
             android:layout_gravity="center"
             android:orientation="vertical">
 
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/icon_like" />
+<!--            <ImageView-->
+<!--                android:layout_width="40dp"-->
+<!--                android:layout_height="40dp"-->
+<!--                android:src="@drawable/icon_like" />-->
+            <com.like.LikeButton
+                android:id="@+id/likeBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                app:icon_size="20dp"
+                app:icon_type="heart"
+                app:like_drawable="@mipmap/ic_heart_on"
+                app:unlike_drawable="@mipmap/ic_heart_off" />
 
             <TextView
                 android:layout_width="40dp"
