@@ -43,6 +43,7 @@
 
         <View
             android:id="@+id/add"
+            android:onClick="systemRecord"
             android:layout_width="50dp"
             android:layout_height="35dp"
             android:background="@drawable/ic_add" />

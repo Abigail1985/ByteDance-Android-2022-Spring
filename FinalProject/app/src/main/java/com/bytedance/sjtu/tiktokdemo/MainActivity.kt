@@ -2,12 +2,15 @@ package com.bytedance.sjtu.tiktokdemo
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.bytedance.sjtu.tiktokdemo.activity.LoginActivity
+import com.bytedance.sjtu.tiktokdemo.activity.SystemRecordActivity
 import com.bytedance.sjtu.tiktokdemo.adapter.ViewPagerAdapter
 import com.bytedance.sjtu.tiktokdemo.entity.VideoInfo
 import com.bytedance.sjtu.tiktokdemo.holder.NormalHolder
@@ -28,6 +31,8 @@ class MainActivity : AppCompatActivity() {
             val intent=Intent(this,LoginActivity::class.java)
             startActivity(intent)
         }
+
+
 
         var viewPager2 = findViewById<ViewPager2>(R.id.viewPager)
 
@@ -101,4 +106,7 @@ class MainActivity : AppCompatActivity() {
         mList.add(data5)
     }
 
+    fun systemRecord(view: View) {
+        SystemRecordActivity.startUI(this)
+    }
 }
