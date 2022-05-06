@@ -3,11 +3,26 @@
 > 安卓学习笔记仓库:https://github.com/Abigail1985/Code-Learning-Note
 
 
-## All-In-One
+
+# FinalProject
+
+[link](https://github.com/Abigail1985/ByteDance-Android-2022-Spring/tree/master/FinalProject)
+
+一个仿抖音demo，实现竖向视频流，登陆，录制视频，点赞和双击点赞等功能
+
+![demo-1](DemoGif/demo-1.gif)
+
+![demo-2](DemoGif/demo-2.gif)
+
+# All-In-One
 
 集中展示所有作业
 
 **从Homework5开始, 仅更新在All-In-one中, 不再为单独为作业创建项目和文件夹**
+
+## Homework8
+
+✅实现自定义照片拍摄和视频录制功能
 
 ## Homework7
 
