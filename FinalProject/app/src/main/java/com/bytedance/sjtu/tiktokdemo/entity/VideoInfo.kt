@@ -1,4 +1,4 @@
-package com.bytedance.jstu.homework.entity
+package com.bytedance.sjtu.tiktokdemo.entity
 
 import java.io.Serializable
 

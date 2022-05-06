@@ -1,13 +1,13 @@
-package com.bytedance.jstu.homework.holder
+package com.bytedance.sjtu.tiktokdemo.holder
 
 import android.content.Context
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
-import com.bytedance.jstu.homework.R
-import com.bytedance.jstu.homework.entity.VideoInfo
-import com.bytedance.jstu.homework.video.SampleCoverVideo
+import com.bytedance.sjtu.tiktokdemo.R
+import com.bytedance.sjtu.tiktokdemo.entity.VideoInfo
+import com.bytedance.sjtu.tiktokdemo.video.SampleCoverVideo
 import com.shuyu.gsyvideoplayer.GSYVideoManager
 import com.shuyu.gsyvideoplayer.builder.GSYVideoOptionBuilder
 import com.shuyu.gsyvideoplayer.listener.GSYSampleCallBack

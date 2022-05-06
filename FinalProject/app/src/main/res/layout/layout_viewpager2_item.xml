@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@android:color/black">
 
-    <com.bytedance.jstu.homework.video.SampleCoverVideo
+    <com.bytedance.sjtu.tiktokdemo.video.SampleCoverVideo
         android:id="@+id/video_item_player"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

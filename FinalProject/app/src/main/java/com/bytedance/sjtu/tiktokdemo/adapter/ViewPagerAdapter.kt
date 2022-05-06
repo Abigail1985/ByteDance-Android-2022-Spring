@@ -1,13 +1,13 @@
-package com.bytedance.jstu.homework.adapter
+package com.bytedance.sjtu.tiktokdemo.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bytedance.jstu.homework.R
-import com.bytedance.jstu.homework.entity.VideoInfo
-import com.bytedance.jstu.homework.holder.NormalHolder
+import com.bytedance.sjtu.tiktokdemo.R
+import com.bytedance.sjtu.tiktokdemo.entity.VideoInfo
+import com.bytedance.sjtu.tiktokdemo.holder.NormalHolder
 
 
 class ViewPagerAdapter(context: Context?, itemDataList: List<VideoInfo>?) :

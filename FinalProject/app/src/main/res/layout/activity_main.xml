@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/backGround"
     android:clipChildren="false"
-    tools:context="com.bytedance.jstu.homework.MainActivity">
+    tools:context="com.bytedance.sjtu.tiktokdemo.MainActivity">
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager"

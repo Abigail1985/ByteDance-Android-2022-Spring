@@ -8,7 +8,7 @@ android {
     buildToolsVersion "30.0.3"
 
     defaultConfig {
-        applicationId "com.bytedance.jstu.homework"
+        applicationId "com.bytedance.sjtu.tiktokdemo"
         minSdkVersion 19
         targetSdkVersion 32
         versionCode 1
@@ -38,8 +38,8 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
 
 //    implementation project(path: ':likebutton')
-    implementation 'androidx.recyclerview:recyclerview:1.1.0'
-    implementation 'com.google.android.material:material:1.2.0-alpha03'
+    implementation 'androidx.recyclerview:recyclerview:1.2.1'
+    implementation 'com.google.android.material:material:1.6.0-alpha01'
 
 
     implementation 'org.greenrobot:eventbus:3.1.1'
@@ -49,12 +49,12 @@ dependencies {
     implementation 'com.gyf.immersionbar:immersionbar-components:3.0.0'
     // kotlin扩展（可选）
     implementation 'com.gyf.immersionbar:immersionbar-ktx:3.0.0'
-    implementation 'androidx.core:core:1.2.0-rc01'
+    implementation 'androidx.core:core:1.9.0-alpha03'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
     // Glide图片加载框架
-    implementation 'com.github.bumptech.glide:glide:4.11.0'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
+    implementation 'com.github.bumptech.glide:glide:4.13.1'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.13.1'
 
     // 圆形头像
     implementation 'de.hdodenhof:circleimageview:3.0.1'

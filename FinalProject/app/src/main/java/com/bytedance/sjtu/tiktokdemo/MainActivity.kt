@@ -1,13 +1,16 @@
-package com.bytedance.jstu.homework
+package com.bytedance.sjtu.tiktokdemo
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
-import com.bytedance.jstu.homework.adapter.ViewPagerAdapter
-import com.bytedance.jstu.homework.entity.VideoInfo
-import com.bytedance.jstu.homework.holder.NormalHolder
+import com.bytedance.sjtu.tiktokdemo.activity.LoginActivity
+import com.bytedance.sjtu.tiktokdemo.adapter.ViewPagerAdapter
+import com.bytedance.sjtu.tiktokdemo.entity.VideoInfo
+import com.bytedance.sjtu.tiktokdemo.holder.NormalHolder
 import com.shuyu.gsyvideoplayer.GSYVideoManager
 
 
@@ -19,6 +22,12 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        var me=findViewById<TextView>(R.id.me)
+        me.setOnClickListener {
+            val intent=Intent(this,LoginActivity::class.java)
+            startActivity(intent)
+        }
 
         var viewPager2 = findViewById<ViewPager2>(R.id.viewPager)
 
@@ -91,4 +100,5 @@ class MainActivity : AppCompatActivity() {
             videoUrl="https://vt1.doubanio.com/202205061430/5e0787fc0a1e9d022a1d39ca7f76bcdf/view/movie/M/402880322.mp4" }
         mList.add(data5)
     }
+
 }

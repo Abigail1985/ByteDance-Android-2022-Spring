@@ -1,4 +1,4 @@
-package com.bytedance.jstu.homework.video
+package com.bytedance.sjtu.tiktokdemo.video
 
 import android.content.Context
 import android.graphics.Point
@@ -11,7 +11,7 @@ import android.widget.ImageView
 import android.widget.SeekBar
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.bytedance.jstu.homework.R
+import com.bytedance.sjtu.tiktokdemo.R
 import com.shuyu.gsyvideoplayer.utils.CommonUtil
 import com.shuyu.gsyvideoplayer.utils.Debuger
 import com.shuyu.gsyvideoplayer.utils.GSYVideoType

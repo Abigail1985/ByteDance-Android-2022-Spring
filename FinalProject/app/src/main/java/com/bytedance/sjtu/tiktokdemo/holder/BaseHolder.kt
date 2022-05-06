@@ -1,4 +1,4 @@
-package com.bytedance.jstu.homework.holder
+package com.bytedance.sjtu.tiktokdemo.holder
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
